@@ -34,3 +34,14 @@ Blockly.JavaScript['test_react_field'] = function (block) {
 Blockly.JavaScript['test_react_date_field'] = function (block) {
     return 'console.log(' + block.getField('DATE').getText() + ');\n';
 };
+
+Blockly.JavaScript['test_operator'] = function(block) {
+
+    var value_one = Blockly.JavaScript.valueToCode(block, 'ONE', Blockly.JavaScript.ORDER_ATOMIC) ? Blockly.JavaScript.valueToCode(block, 'ONE', Blockly.JavaScript.ORDER_ATOMIC) : '0';
+    var value_two = Blockly.JavaScript.valueToCode(block, 'TWO', Blockly.JavaScript.ORDER_ATOMIC) ? Blockly.JavaScript.valueToCode(block, 'TWO', Blockly.JavaScript.ORDER_ATOMIC) : '0';
+    var value_three = Blockly.JavaScript.valueToCode(block, 'THREE', Blockly.JavaScript.ORDER_ATOMIC) ? Blockly.JavaScript.valueToCode(block, 'THREE', Blockly.JavaScript.ORDER_ATOMIC) : '0';
+
+    var code = value_one + ' * ' + value_two + ' * ' + value_three;
+
+    return [code, Blockly.JavaScript.ORDER_NONE];
+};

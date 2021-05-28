@@ -93,3 +93,37 @@ Blockly.Blocks['test_react_date_field'] = {
     this.setStyle('loop_blocks');
   }
 };
+
+var test_operator = {
+  "type": "test_operator",
+  "message0": "%1 x %2 x %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "ONE",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "TWO",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "THREE",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "output": "Number",
+  "colour": 225,
+  "tooltip": "",
+  "helpUrl": ""
+}
+
+Blockly.Blocks['test_operator'] = {
+  init: function() {
+    this.jsonInit(test_operator);
+    this.setStyle('math_blocks');
+  }
+};
