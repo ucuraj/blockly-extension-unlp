@@ -6,7 +6,6 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 50vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,9 +22,28 @@
   background-color: #282c34;
 }
 
+.codearea{
+  height: 100%;
+  width: 100%;
+  bottom: 0;
+}
+
+.blocklyDiv, .blocklyDiv2 {
+  height: 50%;
+  width: 50%;
+  position: absolute;
+  bottom: 0;
+}
+
+.blocklyDiv2{
+  margin-left: 50%;
+}
+
 .button {
   background-color: #008bba99;
   color: #ffffff;
+  width: 100px;
+  height: 30px;
 }
 
 @keyframes App-logo-spin {

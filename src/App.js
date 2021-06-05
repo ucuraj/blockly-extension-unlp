@@ -21,18 +21,19 @@
  * @author samelh@google.com (Sam El-Husseini)
  */
 
-import React from 'react';
+import React from 'react'
 import './App.css';
 
-import * as Blockly from 'blockly/core';
+import * as Blockly from 'blockly';
 import 'blockly/blocks';
-import * as Es from 'blockly/msg/es';
-
-import BlocklyComponent, { Block, Value, Field, Category, Shadow } from './Blockly';
-import BlocklyJS from 'blockly/javascript';
 
 import './blocks/customblocks';
 import './generator/generator';
+
+import 'blockly/python'
+import * as Es from 'blockly/msg/es';
+
+import BlocklyComponent, { Block, Value, Field, Category, Shadow } from './Blockly';
 
 // Traduccion de bloques al español
 Blockly.setLocale(Es);
@@ -41,31 +42,34 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.simpleWorkspace = React.createRef();
+    this.state = { code: '' };
   }
 
   generateCode = () => {
-    var code = BlocklyJS.workspaceToCode(
-      this.simpleWorkspace.current.workspace
-    );
-    console.log(code);
+    if(this.simpleWorkspace.current){
+      this.setState({ code: (Blockly['Python'].workspaceToCode(this.simpleWorkspace.current.workspace)) })
+    }
   }
 
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <button onClick={this.generateCode} className="button">Convert</button>
+        <div className="blocklyDiv2">       
+            <textarea id="anarea" className="codearea" readOnly={true} value={this.state.code}>
+            </textarea>
+        </div> 
+         
+        <div onClick = {this.generateCode}>
           <BlocklyComponent ref={this.simpleWorkspace}
-          readOnly={false} trashcan={true} media={'media/'}
-          move={{
-            scrollbars: true,
-            drag: true,
-            wheel: true
-          }}
-          initialXml={`
-            <xml xmlns="http://www.w3.org/1999/xhtml">
-            </xml>
-          `}>
+            className={'blocklyDiv'}
+            readOnly={false} trashcan={true} media={'media/'}
+            move={{
+              scrollbars: true,
+              drag: true,
+              wheel: true
+            }}
+            initialXml={``}
+          >
 
             {/* MENU EN ESPAÑOL
             
@@ -312,11 +316,37 @@ class App extends React.Component {
             
             <Category name="Variables" custom="VARIABLE" colour="%{BKY_VARIABLES_HUE}">
             </Category>
+
             <Category name="Funciones" custom="PROCEDURE" colour="%{BKY_PROCEDURES_HUE}">
             </Category>          
-      
+           
+            <Category name="Pruebas" colour="100">
+              <Block type="test_operator"></Block>
+              <Block type="graph_set_y" x="100" y="100">
+                <Value name="VALUE">
+                  <Block type="math_arithmetic">
+                    <Field name="OP">POWER</Field>
+                    <Value name="A">
+                      <Block type="graph_get_x"></Block>
+                      <Shadow type="math_number">
+                        <Field name="NUM">1</Field>
+                      </Shadow>
+                    </Value>
+                    <Value name="B">
+                      <Block type="math_number">
+                        <Field name="NUM">2</Field>
+                      </Block>
+                      <Shadow type="math_number">
+                        <Field name="NUM">1</Field>
+                      </Shadow>
+                    </Value>
+                  </Block>
+                </Value>
+              </Block>
+              </Category>
+
           </BlocklyComponent>
-        </header>
+        </div>
       </div>
     );
   }

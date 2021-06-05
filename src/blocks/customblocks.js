@@ -27,6 +27,8 @@
 
 import * as Blockly from 'blockly/core';
 
+import 'blockly/python'
+
 // Since we're using json to initialize the field, we'll need to import it.
 import '../fields/BlocklyReactField';
 import '../fields/DateField';
@@ -125,5 +127,41 @@ Blockly.Blocks['test_operator'] = {
   init: function() {
     this.jsonInit(test_operator);
     this.setStyle('math_blocks');
+  }
+};
+
+var graph_get_x = {
+  "type": "graph_get_x",
+  "message0": "x",
+  "output": "Number",
+  "colour": Blockly.Msg['VARIABLES_HUE'],
+  "tooltip": Blockly.Msg['VARIABLES_GET_TOOLTIP'],
+  "helpUrl": Blockly.Msg['VARIABLES_GET_HELPURL']
+}
+
+Blockly.Blocks['graph_get_x'] = {
+  init: function() {
+    this.jsonInit(graph_get_x);
+  }
+};
+
+var graph_set_y = {
+  "type": "graph_set_y",
+  "message0": "y = %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "VALUE",
+      "check": "Number"
+    }
+  ],
+  "colour": Blockly.Msg['VARIABLES_HUE'],
+  "tooltip": Blockly.Msg['VARIABLES_SET_TOOLTIP'],
+  "helpUrl": Blockly.Msg['VARIABLES_SET_HELPURL']
+}
+
+Blockly.Blocks['graph_set_y'] = {
+  init: function() {
+    this.jsonInit(graph_set_y);
   }
 };
