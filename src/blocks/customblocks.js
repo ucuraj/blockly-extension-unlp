@@ -1,6 +1,6 @@
 /**
  * @license
- * 
+ *
  * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,144 +24,164 @@
 // More on defining blocks:
 // https://developers.google.com/blockly/guides/create-custom-blocks/define-blocks
 
+import * as Blockly from "blockly/core";
 
-import * as Blockly from 'blockly/core';
-
-import 'blockly/python'
+import "blockly/python";
 
 // Since we're using json to initialize the field, we'll need to import it.
-import '../fields/BlocklyReactField';
-import '../fields/DateField';
+import "../fields/BlocklyReactField";
+import "../fields/DateField";
 
 var testReactField = {
-  "type": "test_react_field",
-  "message0": "custom field %1",
-  "args0": [
+  type: "test_react_field",
+  message0: "custom field %1",
+  args0: [
     {
-      "type": "field_react_component",
-      "name": "FIELD",
-      "text": "Click me"
+      type: "field_react_component",
+      name: "FIELD",
+      text: "Click me",
     },
   ],
-  "previousStatement": null,
-  "nextStatement": null,
+  previousStatement: null,
+  nextStatement: null,
 };
 
-Blockly.Blocks['test_react_field'] = {
-  init: function() {
+Blockly.Blocks["test_react_field"] = {
+  init: function () {
     this.jsonInit(testReactField);
-    this.setStyle('loop_blocks');
-  }
+    this.setStyle("loop_blocks");
+  },
 };
 
 var testCampo = {
-  "type": "test_campo_field",
-  "message0": "bloque de prueba %1",
-  "args0": [
+  type: "test_campo_field",
+  message0: "bloque de prueba %1",
+  args0: [
     {
-      "type": "field_react_component",
-      "name": "FIELD",
-      "text": "Hola editameee!!"
+      type: "field_react_component",
+      name: "FIELD",
+      text: "Hola editameee!!",
     },
   ],
-  "previousStatement": null,
-  "nextStatement": null,
+  previousStatement: null,
+  nextStatement: null,
 };
 
-Blockly.Blocks['test_campo_field'] = {
-  init: function() {
+Blockly.Blocks["test_campo_field"] = {
+  init: function () {
     this.jsonInit(testCampo);
-    this.setStyle('loop_blocks');
-  }
+    this.setStyle("loop_blocks");
+  },
 };
 
 var reactDateField = {
-  "type": "test_react_date_field",
-  "message0": "date field %1",
-  "args0": [
+  type: "test_react_date_field",
+  message0: "date field %1",
+  args0: [
     {
-      "type": "field_react_date",
-      "name": "DATE",
-      "date": "01/01/2020"
+      type: "field_react_date",
+      name: "DATE",
+      date: "01/01/2020",
     },
   ],
-  "previousStatement": null,
-  "nextStatement": null,
+  previousStatement: null,
+  nextStatement: null,
 };
 
-Blockly.Blocks['test_react_date_field'] = {
-  init: function() {
+Blockly.Blocks["test_react_date_field"] = {
+  init: function () {
     this.jsonInit(reactDateField);
-    this.setStyle('loop_blocks');
-  }
+    this.setStyle("loop_blocks");
+  },
 };
 
 var test_operator = {
-  "type": "test_operator",
-  "message0": "%1 x %2 x %3",
-  "args0": [
+  type: "test_operator",
+  message0: "%1 x %2 x %3",
+  args0: [
     {
-      "type": "input_value",
-      "name": "ONE",
-      "check": "Number"
+      type: "input_value",
+      name: "ONE",
+      check: "Number",
     },
     {
-      "type": "input_value",
-      "name": "TWO",
-      "check": "Number"
+      type: "input_value",
+      name: "TWO",
+      check: "Number",
     },
     {
-      "type": "input_value",
-      "name": "THREE",
-      "check": "Number"
-    }
+      type: "input_value",
+      name: "THREE",
+      check: "Number",
+    },
   ],
-  "inputsInline": true,
-  "output": "Number",
-  "colour": 225,
-  "tooltip": "",
-  "helpUrl": ""
-}
+  inputsInline: true,
+  output: "Number",
+  colour: 225,
+  tooltip: "",
+  helpUrl: "",
+};
 
-Blockly.Blocks['test_operator'] = {
-  init: function() {
+Blockly.Blocks["test_operator"] = {
+  init: function () {
     this.jsonInit(test_operator);
-    this.setStyle('math_blocks');
-  }
+    this.setStyle("math_blocks");
+  },
 };
 
 var graph_get_x = {
-  "type": "graph_get_x",
-  "message0": "x",
-  "output": "Number",
-  "colour": Blockly.Msg['VARIABLES_HUE'],
-  "tooltip": Blockly.Msg['VARIABLES_GET_TOOLTIP'],
-  "helpUrl": Blockly.Msg['VARIABLES_GET_HELPURL']
-}
+  type: "graph_get_x",
+  message0: "x",
+  output: "Number",
+  colour: Blockly.Msg["VARIABLES_HUE"],
+  tooltip: Blockly.Msg["VARIABLES_GET_TOOLTIP"],
+  helpUrl: Blockly.Msg["VARIABLES_GET_HELPURL"],
+};
 
-Blockly.Blocks['graph_get_x'] = {
-  init: function() {
+Blockly.Blocks["graph_get_x"] = {
+  init: function () {
     this.jsonInit(graph_get_x);
-  }
+  },
 };
 
 var graph_set_y = {
-  "type": "graph_set_y",
-  "message0": "y = %1",
-  "args0": [
+  type: "graph_set_y",
+  message0: "y = %1",
+  args0: [
     {
-      "type": "input_value",
-      "name": "VALUE",
-      "check": "Number"
-    }
+      type: "input_value",
+      name: "VALUE",
+      check: "Number",
+    },
   ],
-  "colour": Blockly.Msg['VARIABLES_HUE'],
-  "tooltip": Blockly.Msg['VARIABLES_SET_TOOLTIP'],
-  "helpUrl": Blockly.Msg['VARIABLES_SET_HELPURL']
-}
+  colour: Blockly.Msg["VARIABLES_HUE"],
+  tooltip: Blockly.Msg["VARIABLES_SET_TOOLTIP"],
+  helpUrl: Blockly.Msg["VARIABLES_SET_HELPURL"],
+};
 
-Blockly.Blocks['graph_set_y'] = {
-  init: function() {
+Blockly.Blocks["graph_set_y"] = {
+  init: function () {
     this.jsonInit(graph_set_y);
-  }
+  },
+};
+
+var draw_stamp = {
+  type: "graph_set_y",
+  message0: "stamp",
+  args0: [
+    {
+      type: "input_value",
+      name: "stamp",
+      check: "Number",
+    },
+  ],
+  colour: Blockly.Msg["VARIABLES_HUE"],
+  tooltip: Blockly.Msg["VARIABLES_SET_TOOLTIP"],
+  helpUrl: Blockly.Msg["VARIABLES_SET_HELPURL"],
+};
+
+Blockly.Blocks["draw_stamp"] = {
+  init: function () {
+    this.jsonInit(draw_stamp);
+  },
 };
