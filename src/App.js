@@ -26,12 +26,14 @@ import "./App.css";
 
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 import Home from "./Home";
+import Pyodide from "./Pyodide";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={"/"} component={Home} />
+        <Route exact path={"/pyodide"} component={Pyodide} />
       </Switch>
     </BrowserRouter>
   );

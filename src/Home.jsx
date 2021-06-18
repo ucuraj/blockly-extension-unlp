@@ -1,4 +1,4 @@
-import React, { createRef, useState } from "react";
+import React, { createRef, useEffect, useState } from "react";
 import BlocklyComponent, {
   Block,
   Category,
@@ -14,69 +14,42 @@ import "./blocks/customblocks";
 import "./generator/generator";
 
 import "blockly/python";
-import * as Es from "blockly/msg/es"; // Traduccion de bloques al español
-
-import Sk from "skulpt";
+import * as Es from "blockly/msg/es";
 
 Blockly.setLocale(Es);
 
-Sk.externalLibraries = {
-  numpy: {
-    path: "external/numpy/__init__.js",
-  },
-  "numpy.random": {
-    path: "external/numpy/random/__init__.js",
-  },
-  matplotlib: {
-    path: "external/matplotlib/__init__.js",
-  },
-  "matplotlib.pyplot": {
-    path: "external/matplotlib/pyplot/__init__.js",
-    dependencies: ["external/deps/d3.min.js", "external/deps/jquery.js"],
-  },
-};
-
-// http://tests.ljouhet.net/skulpt/
-
-function outf(text) {
-  var mypre = document.getElementById("output");
-  mypre.innerHTML = mypre.innerHTML + text;
-}
-function builtinRead(x) {
-  if (
-    Sk.builtinFiles === undefined ||
-    Sk.builtinFiles["files"][x] === undefined
-  )
-    // eslint-disable-next-line no-throw-literal
-    throw "File not found: '" + x + "'";
-  return Sk.builtinFiles["files"][x];
-}
-
-function runit() {
-  var prog = document.getElementById("anarea").value;
-  // var prog = "import turtle\n" + "turtle.stamp()";
-  var mypre = document.getElementById("output");
-  mypre.innerHTML = "";
-  Sk.pre = "output";
-  Sk.configure({ output: outf, read: builtinRead });
-  (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = "mycanvas";
-  var myPromise = Sk.misceval.asyncToPromise(function () {
-    return Sk.importMainWithBody("<stdin>", false, prog, true);
-  });
-  myPromise.then(
-    function (mod) {
-      console.log("success");
-    },
-    function (err) {
-      console.log(err.toString());
-    }
-  );
-}
-
 const Home = () => {
   const simpleWorkspace = createRef();
-
+  const [loaded, setLoaded] = useState(false);
   const [code, setCode] = useState();
+
+  const runScript = (code) => {
+    if (loaded) {
+      const pyodide = window.pyodide;
+      pyodide.loadPackage([]).then(() => {
+        pyodide.loadPackage(["matplotlib"]).then(() => {
+          console.log(pyodide.runPython("print(1 + 2)"));
+          console.log(pyodide.runPython(code));
+          pyodide.runPython(code);
+          console.log(pyodide.globals.img_str);
+          document.getElementById("pyplotfigure").src = pyodide.globals.img_str;
+        });
+        // setOutput(output);
+      });
+    }
+  };
+
+  useEffect(() => {
+    window.languagePluginLoader.then(() => {
+      setLoaded(true);
+      console.log("loaded");
+    });
+  });
+
+  useEffect(() => {
+    console.log(code);
+    runScript(code);
+  }, [code]);
 
   const generateCode = () => {
     if (simpleWorkspace.current) {
@@ -89,8 +62,9 @@ const Home = () => {
   return (
     <div className="App">
       <pre id="output" />
-      asdasdasd
-      <div id="mycanvas" />
+      <div id="pyplotdiv">
+        <img id="pyplotfigure" alt={"pyplotfigure"} />
+      </div>
       <div className="blocklyDiv2">
         <textarea
           id="anarea"
@@ -98,9 +72,7 @@ const Home = () => {
           readOnly={true}
           value={code}
         />
-        <button type="button" onClick={() => runit()}>
-          Run
-        </button>
+        <button type="button">Run</button>
       </div>
       <div onClick={generateCode}>
         <BlocklyComponent

@@ -70,41 +70,47 @@ Blockly.Python["graph_get_x"] = function (block) {
 
 Blockly.Python["graph_set_y"] = function (block) {
   // y variable setter.
-
-  var argument0 = Blockly.Python.valueToCode(
-    block,
-    "VALUE",
-    Blockly.Python.ORDER_ATOMIC
-  )
-    ? Blockly.Python.valueToCode(block, "VALUE", Blockly.Python.ORDER_ATOMIC)
-    : "";
+  //
+  // var argument0 = Blockly.Python.valueToCode(
+  //   block,
+  //   "VALUE",
+  //   Blockly.Python.ORDER_ATOMIC
+  // )
+  //   ? Blockly.Python.valueToCode(block, "VALUE", Blockly.Python.ORDER_ATOMIC)
+  //   : "";
 
   // var argument0 = Blockly.valueToCode(block, 'VALUE', Blockly.Python.ORDER_ASSIGNMENT) || '';
-  return (
-    "# Python program to draw square\n" +
-    "# using Turtle Programming\n" +
-    "import turtle\n" +
-    "skk = turtle.Turtle()\n" +
-    " \n" +
-    "for i in range(4):\n" +
-    "    skk.forward(50)\n" +
-    "    skk.right(90)\n" +
-    "     \n" +
-    "turtle.done()"
-  );
+  // return (
+  //   "# Python program to draw square\n" +
+  //   "# using Turtle Programming\n" +
+  //   "import turtle\n" +
+  //   "skk = turtle.Turtle()\n" +
+  //   " \n" +
+  //   "for i in range(4):\n" +
+  //   "    skk.forward(50)\n" +
+  //   "    skk.right(90)\n" +
+  //   "     \n" +
+  //   "turtle.done()"
+  // );
 
-  //   return (
-  //       "import time\n" +
-  //       'print("Hello World : " + str(time.time()))\n' +
-  //       "\n" +
-  //       "import numpy as np\n" +
-  //       "print(np.linspace(0, 1, 15))\n" +
-  //       "\n" +
-  //       "import matplotlib.pyplot as plt\n" +
-  //       "plt.plot([1, 2, 3])\n" +
-  //       "plt.show()\n"
-  //   );
-  // };
+  return (
+    "import matplotlib.pyplot as plt\n" +
+    "import io, base64\n" +
+    "\n" +
+    "# Pie chart, where the slices will be ordered and plotted counter-clockwise:\n" +
+    "buf = io.BytesIO()\n" +
+    "labels = 'Frogs', 'Hogs', 'Dogs', 'Logs'\n" +
+    "sizes = [15, 30, 45, 10]\n" +
+    "explode = (0, 0.1, 0, 0)  # only \"explode\" the 2nd slice (i.e. 'Hogs')\n" +
+    "\n" +
+    "fig1, ax1 = plt.subplots()\n" +
+    "ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',\n" +
+    "    shadow=True, startangle=90)\n" +
+    "ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.\n" +
+    "fig1.savefig(buf, format='png')\n" +
+    "buf.seek(0)\n" +
+    "img_str = 'data:image/png;base64,' + base64.b64encode(buf.read()).decode('UTF-8')"
+  );
 };
 
 Blockly.Python["draw_stamp"] = function (a) {
