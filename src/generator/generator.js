@@ -118,3 +118,13 @@ Blockly.Python["draw_stamp"] = function (a) {
     "import turtle\nturtle=turtle.Turtle()";
   return "turtle.stamp()\n";
 };
+
+Blockly.Python["print"] = function (block) {
+  var value_value = Blockly.Python.valueToCode(
+    block,
+    "value",
+    Blockly.Python.ORDER_ATOMIC
+  );
+  // TODO: Assemble Python into code variable.
+  return `value = ${value_value}\nprint(value)`;
+};

@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.4",
     "blockly": "^3.20200924.4",
     "blockly-react-component": "^1.0.2",
     "bootstrap": "^5.0.1",

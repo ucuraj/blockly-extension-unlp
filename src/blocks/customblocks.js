@@ -185,3 +185,16 @@ Blockly.Blocks["draw_stamp"] = {
     this.jsonInit(draw_stamp);
   },
 };
+
+Blockly.Blocks["print"] = {
+  init: function () {
+    this.appendValueInput("value").setCheck(null).appendField("print(");
+    this.appendDummyInput().setAlign(Blockly.ALIGN_RIGHT).appendField(")");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(160);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  },
+};
